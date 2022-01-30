@@ -1,3 +1,15 @@
+## Commands
+
+* Install Latest Version of PHP (PHP 8) 
+`sudo apt install php`
+
+* To Change PHP Version Use :
+`sudo update-alternative --config php`
+
+* Install Dependencies 
+`composer install`
+
+
 # Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
