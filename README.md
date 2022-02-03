@@ -9,6 +9,14 @@
 * Install Dependencies 
 `composer install`
 
+* Generate Key for your App
+`php artisan key:generate`
+
+* Copy .env file
+`cp .env.example .env`
+
+* Modify .env File
+
 
 # Lumen PHP Framework
 
