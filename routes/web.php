@@ -16,3 +16,17 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/parents', 'ParentController@index');
+
+//show Each Products By ID
+$router->get('/parents/{id}', 'ParentController@show');
+
+//store products
+$router->post('/parents/create', 'ParentController@store');
+
+//update products
+$router->post('/parents/update/{id}', 'ParentController@update');
+
+// Delete
+$router->delete('/parents/delete/{id}', 'ParentController@destroy');

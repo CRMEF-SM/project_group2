@@ -14,7 +14,8 @@ class ParentController extends Controller
      */
     public function index()
     {
-        //
+        $parents = TheParent::all();
+        return response()->json($parents);
     }
 
     /**
@@ -25,7 +26,34 @@ class ParentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $parent = new TheParent();
+
+        // image upload
+        if($request->hasFile('photo')) {
+
+        $allowedfileExtension=['pdf','jpg','png'];
+        $file = $request->file('photo');
+        $extenstion = $file->getClientOriginalExtension();
+        $check = in_array($extenstion, $allowedfileExtension);
+
+        if($check){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $parent->photo = $name;
+        }
+        }
+
+
+        // text data
+        $parent->first_name = $request->input('first_name');
+        $parent->last_name = $request->input('last_name');
+        $parent->cin = $request->input('cin');
+        $parent->adresse = $request->input('adresse');
+        $parent->phone = $request->input('phone');
+        $parent->carte_id = $request->input('carte_id');
+
+        $parent->save();
+        return response()->json($parent);
     }
 
     /**
@@ -36,7 +64,8 @@ class ParentController extends Controller
      */
     public function show(TheParent $theParent)
     {
-        //
+        $parent = TheParent::find($theParent);
+        return response()->json($parent);
     }
 
     /**
@@ -48,7 +77,42 @@ class ParentController extends Controller
      */
     public function update(Request $request, TheParent $theParent)
     {
-        //
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'photo' => 'required',
+            'cin' => 'required',
+            'adresse' => 'required',
+            'phone' => 'required'
+         ]);
+
+        $parent = TheParent::find($theParent);
+
+
+        // image upload
+        if($request->hasFile('photo')) {
+
+            $allowedfileExtension=['pdf','jpg','png'];
+            $file = $request->file('photo');
+            $extenstion = $file->getClientOriginalExtension();
+            $check = in_array($extenstion, $allowedfileExtension);
+
+            if($check){
+                $name = time() . $file->getClientOriginalName();
+                $file->move('images', $name);
+                $parent->photo = $name;
+            }
+            }
+        // text Data
+        $parent->first_name= $request->input('first_name');
+        $parent->last_name = $request->input('last_name');
+        $parent->phone = $request->input('phone');
+        $parent->cin = $request->input('cin');
+        $parent->adresse = $request->input('adresse');
+
+        $parent->save();
+
+        return response()->json($parent);
     }
 
     /**
@@ -59,6 +123,7 @@ class ParentController extends Controller
      */
     public function destroy(TheParent $theParent)
     {
-        //
-    }
+        $parent = TheParent::find($theParent);
+        $parent->delete();
+        return response()->json('Parent Deleted Successfully');    }
 }
