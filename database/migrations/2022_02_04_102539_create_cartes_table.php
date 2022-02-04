@@ -15,7 +15,6 @@ class CreateCartesTable extends Migration
     {
         Schema::create('cartes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("parent_id");
             $table->foreignId("parent_id")->references("id")->on("parents");
             $table->timestamps();
         });
