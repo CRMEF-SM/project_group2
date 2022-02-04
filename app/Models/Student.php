@@ -8,6 +8,6 @@ class Student extends Model
 {
     public function parent()
     {
-        return $this->belongsToMany(TheParent::class,"");
+        return $this->belongsToMany(TheParent::class);
     }
 }
