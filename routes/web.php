@@ -17,16 +17,57 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+// parents
 $router->get('/parents', 'ParentController@index');
 
-//show Each Products By ID
-$router->get('/parents/{id}', 'ParentController@show');
+$router->get('/parents/{theParent}', 'ParentController@show');
 
-//store products
 $router->post('/parents/create', 'ParentController@store');
 
-//update products
-$router->post('/parents/update/{id}', 'ParentController@update');
+$router->post('/parents/update/{theParent}', 'ParentController@update');
 
-// Delete
-$router->delete('/parents/delete/{id}', 'ParentController@destroy');
+$router->delete('/parents/delete/{theParent}', 'ParentController@destroy');
+
+//students
+$router->get('/students', 'StudentController@index');
+
+$router->get('/students/{student_id}', 'StudentController@show');
+
+$router->post('/students/create', 'StudentController@store');
+
+$router->post('/students/update/{student_id}', 'StudentController@update');
+
+$router->delete('/students/delete/{student_id}', 'StudentController@destroy');
+
+//Cartes
+$router->get('/cartes', 'CarteController@index');
+
+$router->get('/cartes/{carte_id}', 'CarteController@show');
+
+$router->post('/cartes/create', 'CarteController@store');
+
+$router->post('/cartes/update/{carte_id}', 'CarteController@update');
+
+$router->delete('/cartes/delete/{carte_id}', 'CarteController@destroy');
+
+//students_parents
+$router->get('/studentParent', 'StudentParentController@index');
+
+$router->get('/studentParent/{studentParent_id}', 'StudentParentController@show');
+
+$router->post('/studentParent/create', 'StudentParentController@store');
+
+$router->post('/studentParent/update/{studentParent_id}', 'StudentParentController@update');
+
+$router->delete('/studentParent/delete/{studentParent_id}', 'StudentParentController@destroy');
+
+//waitings
+$router->get('/waiting', 'WaitingController@index');
+
+$router->get('/waiting/{student_id}', 'WaitingController@show');
+
+$router->post('/waiting/create', 'WaitingController@store');
+
+$router->post('/waiting/update/{student_id}', 'WaitingController@update');
+
+$router->delete('/waiting/delete/{student_id}', 'WaitingController@destroy');

@@ -14,7 +14,8 @@ class WaitingController extends Controller
      */
     public function index()
     {
-        //
+        $waiting = Waiting::all();
+        return response()->json($waiting);
     }
 
     /**
@@ -25,7 +26,14 @@ class WaitingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $waiting = new Waiting();
+
+        // text data
+        $waiting->parent_id = $request->input('parent_id');
+        $waiting->student_id = $request->input('student_id');
+
+        $waiting->save();
+        return response()->json($waiting);
     }
 
     /**
@@ -34,9 +42,21 @@ class WaitingController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Waiting $student)
+    public function show($student_id)
     {
-        //
+        $waiting = Waiting::where('student_id' ,$student_id)->get();
+        
+        if(count($waiting)==1)
+        {
+            return response()->json('the student waiting');
+        }
+        else
+        {
+            return response()->json('the student not waiting');
+        }
+        
+        
+       
     }
 
     /**
@@ -46,9 +66,22 @@ class WaitingController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Waiting $student)
+    public function update(Request $request,$student_id)
     {
-        //
+        $this->validate($request, [
+            'student_id' => 'required',
+            'parent_id' => 'required'
+         ]);
+
+        $wait = Waiting::where('student_id', $student_id)->get()[0];
+        $waiting = Waiting::find($wait['id']);
+        // text Data
+        $waiting->parent_id= $request->input('parent_id');
+        $waiting->student_id = $request->input('student_id');
+
+        $waiting->save();
+
+        return response()->json($waiting);
     }
 
     /**
@@ -57,8 +90,11 @@ class WaitingController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Waiting $student)
+    public function destroy($student_id)
     {
-        //
+        $wait = Waiting::where('student_id', $student_id)->get()[0];
+        $waiting = Waiting::find($wait['id']);
+        $waiting->delete();
+        return response()->json('student Deleted from waiting table Successfully'); 
     }
 }

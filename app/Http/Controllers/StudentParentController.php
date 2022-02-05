@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentParent;
+use App\Models\Student;
+use App\Models\TheParent;
 use Illuminate\Http\Request;
 
 class StudentParentController extends Controller
@@ -14,7 +16,8 @@ class StudentParentController extends Controller
      */
     public function index()
     {
-        //
+        $students_parents = StudentParent::all();
+        return response()->json($students_parents);
     }
 
     /**
@@ -25,7 +28,14 @@ class StudentParentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student_parent = new StudentParent();
+
+        // text data
+        $student_parent->parent_id = $request->input('parent_id');
+        $student_parent->student_id = $request->input('student_id');
+
+        $student_parent->save();
+        return response()->json($student_parent);
     }
 
     /**
@@ -34,9 +44,13 @@ class StudentParentController extends Controller
      * @param  \App\Models\StudentParent  $studentParent
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentParent $studentParent)
+    public function show($studentParent_id)
     {
-        //
+        $student_parent = StudentParent::find($studentParent_id);
+        $student = Student::find($student_parent->student_id);
+        $parent = TheParent::find($student_parent->parent_id);
+        $data = ['id' => $studentParent_id ,'parent' => $parent ,'student' => $student];
+        return response()->json($data);
     }
 
     /**
@@ -46,9 +60,23 @@ class StudentParentController extends Controller
      * @param  \App\Models\StudentParent  $studentParent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentParent $studentParent)
+    public function update(Request $request, $studentParent_id)
     {
-        //
+        $this->validate($request, [
+            'student_id' => 'required',
+            'parent_id' => 'required'
+         ]);
+
+        $student_parent = StudentParent::find($studentParent_id);
+
+
+        // text Data
+        $student_parent->parent_id= $request->input('parent_id');
+        $student_parent->student_id = $request->input('student_id');
+
+        $student_parent->save();
+
+        return response()->json($student_parent);
     }
 
     /**
@@ -57,8 +85,10 @@ class StudentParentController extends Controller
      * @param  \App\Models\StudentParent  $studentParent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StudentParent $studentParent)
+    public function destroy($studentParent_id)
     {
-        //
+        $student_parent = StudentParent::find($studentParent_id);
+        $student_parent->delete();
+        return response()->json('student_parent Deleted Successfully'); 
     }
 }

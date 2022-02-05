@@ -14,7 +14,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return response()->json($students);
     }
 
     /**
@@ -25,7 +26,32 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = new Student();
+
+        // image upload
+        if($request->hasFile('photo')) {
+
+        $allowedfileExtension=['pdf','jpg','png'];
+        $file = $request->file('photo');
+        $extenstion = $file->getClientOriginalExtension();
+        $check = in_array($extenstion, $allowedfileExtension);
+
+        if($check){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $student->photo = $name;
+        }
+        }
+
+
+        // text data
+        $student->first_name = $request->input('first_name');
+        $student->last_name = $request->input('last_name');
+        $student->adresse = $request->input('adresse');
+        $student->niveau = $request->input('niveau');
+
+        $student->save();
+        return response()->json($student);
     }
 
     /**
@@ -34,9 +60,10 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($student_id)
     {
-        //
+        $student = Student::find($student_id);
+        return response()->json($student);
     }
 
     /**
@@ -46,9 +73,41 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $student_id)
     {
-        //
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'adresse' => 'required',
+            'niveau' => 'required'
+         ]);
+
+        $student = Student::find($student_id);
+
+
+        // image upload
+        if($request->hasFile('photo')) {
+
+            $allowedfileExtension=['pdf','jpg','png'];
+            $file = $request->file('photo');
+            $extenstion = $file->getClientOriginalExtension();
+            $check = in_array($extenstion, $allowedfileExtension);
+
+            if($check){
+                $name = time() . $file->getClientOriginalName();
+                $file->move('images', $name);
+                $student->photo = $name;
+            }
+            }
+        // text Data
+        $student->first_name= $request->input('first_name');
+        $student->last_name = $request->input('last_name');
+        $student->niveau = $request->input('niveau');
+        $student->adresse = $request->input('adresse');
+
+        $student->save();
+
+        return response()->json($student);
     }
 
     /**
@@ -57,8 +116,10 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy($student_id)
     {
-        //
+        $student = Student::find($student_id);
+        $student->delete();
+        return response()->json('student Deleted Successfully'); 
     }
 }

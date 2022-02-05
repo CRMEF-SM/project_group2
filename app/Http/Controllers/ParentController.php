@@ -50,7 +50,7 @@ class ParentController extends Controller
         $parent->cin = $request->input('cin');
         $parent->adresse = $request->input('adresse');
         $parent->phone = $request->input('phone');
-        $parent->carte_id = $request->input('carte_id');
+        //$parent->carte_id = $request->input('carte_id');
 
         $parent->save();
         return response()->json($parent);
@@ -62,7 +62,7 @@ class ParentController extends Controller
      * @param  \App\Models\TheParent  $theParent
      * @return \Illuminate\Http\Response
      */
-    public function show(TheParent $theParent)
+    public function show($theParent)
     {
         $parent = TheParent::find($theParent);
         return response()->json($parent);
@@ -75,7 +75,7 @@ class ParentController extends Controller
      * @param  \App\Models\TheParent  $theParent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TheParent $theParent)
+    public function update(Request $request,$theParent)
     {
         $this->validate($request, [
             'first_name' => 'required',
@@ -121,7 +121,7 @@ class ParentController extends Controller
      * @param  \App\Models\TheParent  $theParent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TheParent $theParent)
+    public function destroy($theParent)
     {
         $parent = TheParent::find($theParent);
         $parent->delete();

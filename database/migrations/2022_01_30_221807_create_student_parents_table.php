@@ -13,7 +13,7 @@ class CreateStudentParentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('students_parents', function (Blueprint $table) {
+        Schema::create('student_parents', function (Blueprint $table) {
             $table->id();
             $table->foreignId("parent_id")->references("id")->on("parents");
             $table->foreignId("student_id")->references("id")->on("students");
