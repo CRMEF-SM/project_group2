@@ -14,7 +14,8 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    $routes = $router->app->router->getRoutes();
+    return view("home")->with("routes", $routes);
 });
 
 // parents
