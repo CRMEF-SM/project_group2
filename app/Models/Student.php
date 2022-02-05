@@ -8,11 +8,11 @@ class Student extends Model
 {
     protected $table = "students";
     protected $fillable = [
-        'first_name','last_name','photo','niveau','adresse'
+        'first_name', 'last_name', 'photo', 'niveau', 'adresse'
     ];
 
     public function parent()
     {
-        return $this->belongsToMany(TheParent::class);
+        return $this->hasManyThrough(TheParent::class, StudentParent::class, "student_id", "parent_id");
     }
 }
