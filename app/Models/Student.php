@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+    protected $table = "students";
+    protected $fillable = [
+        'first_name','last_name','photo','niveau','adresse'
+    ];
+
     public function parent()
     {
         return $this->belongsToMany(TheParent::class);

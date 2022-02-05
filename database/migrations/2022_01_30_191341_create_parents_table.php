@@ -21,7 +21,7 @@ class CreateParentsTable extends Migration
             $table->string("adresse");
             $table->string("photo");
             $table->string("phone");
-            $table->unsignedBigInteger("carte_id");
+            //$table->unsignedBigInteger("carte_id");
             $table->timestamps();
         });
     }

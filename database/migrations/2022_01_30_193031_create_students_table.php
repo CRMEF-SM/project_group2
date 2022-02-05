@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string("last_name");
             $table->string("adresse");
             $table->string("niveau");
+            $table->string("photo");
             $table->timestamps();
         });
     }
