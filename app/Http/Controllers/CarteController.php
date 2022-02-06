@@ -49,18 +49,23 @@ class CarteController extends Controller
     public function show($carte_id)
     {
         $carte = carte::find($carte_id);
-        $parent = TheParent::find($carte->parent_id);
-        $student_parent = StudentParent::where('parent_id',$carte->parent_id)->get();
-        if(count($student_parent)==1)
+        if($carte)
         {
-            $student = Student::find($student_parent[0]['student_id']);
-            $data = ['id_carte' => $carte_id ,'student' => $student , 'parent' => $parent];
-            return response()->json($data);
+            $parent = TheParent::find($carte->parent_id);
+            $student_parent = StudentParent::where('parent_id',$carte->parent_id)->get();
+            if(count($student_parent)==1)
+            {
+                $student = Student::find($student_parent[0]['student_id']);
+                $data = ['id_carte' => $carte_id ,'student' => $student , 'parent' => $parent];
+                return response()->json($data);
+            }
+            else
+            {
+                return response()->json('oops somethings wrong !!!');
+            }
         }
         else
-        {
             return response()->json('oops somethings wrong !!!');
-        }
     }
 
     /**
