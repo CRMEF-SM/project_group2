@@ -8,14 +8,14 @@ class TheParent extends Model
 {
     protected $table = "parents";
     protected $fillable = [
-        'first_name','last_name','photo','cin','adresse','phone'
+        'first_name', 'last_name', 'photo', 'cin', 'adresse', 'phone'
     ];
     public function kids()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasManyThrough(Student::class, StudentParent::class);
     }
     public function carte()
     {
-        return $this->hasOne();
+        return $this->hasOne(Carte::class);
     }
 }

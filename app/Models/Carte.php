@@ -8,6 +8,10 @@ class Carte extends Model
 {
     protected $table = "cartes";
     protected $fillable = [
-        'student_id','parent_id'
+        'parent_id'
     ];
+    public function parent()
+    {
+        return $this->belongsTo(TheParent::class, "parent_id");
+    }
 }
