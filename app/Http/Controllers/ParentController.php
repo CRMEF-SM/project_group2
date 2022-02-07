@@ -41,8 +41,9 @@ class ParentController extends Controller
             $file->move('images', $name);
             $parent->photo = $name;
         }
+        else $parent->photo = "test.png";
         }
-
+        else $parent->photo = "test.png";
 
         // text data
         $parent->first_name = $request->input('first_name');
@@ -50,8 +51,7 @@ class ParentController extends Controller
         $parent->cin = $request->input('cin');
         $parent->adresse = $request->input('adresse');
         $parent->phone = $request->input('phone');
-        //$parent->carte_id = $request->input('carte_id');
-
+             
         $parent->save();
         return response()->json($parent);
     }
