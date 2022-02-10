@@ -27,6 +27,12 @@ cp .env.example .env
 
 * Modify .env File
 
+
+* Run migration
+```bash
+php artisan migrate
+```
+
 * Install passport
 ```bash
 php artisan passport:install
