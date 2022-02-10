@@ -6,6 +6,7 @@ use Dusterio\LumenPassport\Http\Controllers\AccessTokenController;
 use Exception;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -73,12 +74,12 @@ class UserController extends Controller
 		if (empty($email) && empty($password)) {
 			return response()->json(['status' => 'error', 'message' => 'You must fill all fields']);
 		}
-
+		$oauth = DB::table('oauth_clients')->where('id',2)->first();
 		$client = new Client();
 		try {
 			return $client->post('http://rfid.com/api/oauth/token', [
 				'form_params' => [
-					'client_secret' => 'SuRTgJLIOt2fUjFyGer99gAl9gCpTu7eu0S1ad7J',
+					'client_secret' => $oauth->secret,
 					'grant_type' => 'password',
 					'client_id' => 2,
 					'username' => $request->email,
