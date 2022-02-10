@@ -77,6 +77,7 @@ $app->configure('auth');
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'guest' => App\Http\Middleware\Guest::class,
 ]);
 
 /*
@@ -108,7 +109,7 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 |
 */
 
-\Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'v1/oauth']);
+\Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'api/oauth']);
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

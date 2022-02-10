@@ -1,21 +1,42 @@
 ## Commands
 
 * Install Latest Version of PHP (PHP 8) 
-`sudo apt install php`
+```bash
+sudo apt install php
+```
 
 * To Change PHP Version Use :
-`sudo update-alternative --config php`
+```bash
+sudo update-alternative --config php
+```
 
 * Install Dependencies 
-`composer install`
+```bash
+composer install
+```
 
 * Generate Key for your App
-`php artisan key:generate`
+```bash
+php artisan key:generate
+```
 
 * Copy .env file
-`cp .env.example .env`
+```bash
+cp .env.example .env
+```
 
 * Modify .env File
+
+
+* Run migration
+```bash
+php artisan migrate
+```
+
+* Install passport
+```bash
+php artisan passport:install
+```
 
 
 # Lumen PHP Framework
