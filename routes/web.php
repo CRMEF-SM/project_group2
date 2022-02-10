@@ -19,6 +19,12 @@ $router->get('/', function () use ($router) {
     return view("home")->with("routes", $routes);
 });
 
+
+$router->group(['middleware' => 'guest', 'prefix' => 'api/admin'], function () use ($router) {
+    $router->post('/register', 'UserController@Register');
+});
+
+
 $router->group(['middleware' => 'guest', 'prefix' => 'api/admin'], function () use ($router) {
     $router->post('/login', 'UserController@login');
 });
