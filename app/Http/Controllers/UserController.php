@@ -153,4 +153,9 @@ class UserController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
 	}
+
+	public function is_logged_in()
+	{
+		return response()->json(['is_logged_in' => auth()->check()]);
+	}
 }

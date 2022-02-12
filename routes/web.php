@@ -31,7 +31,7 @@ $router->group(['middleware' => 'guest', 'prefix' => 'api/admin'], function () u
 $router->group(['middleware' => 'auth', 'prefix' => 'api/admin'], function () use ($router) {
     $router->post('/logout', 'UserController@logout');
 });
-
+$router->get('/is_logged_in', 'UserController@is_logged_in');
 $router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($router) {
 
     // parents
