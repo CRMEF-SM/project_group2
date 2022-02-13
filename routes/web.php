@@ -18,20 +18,16 @@ $router->get('/', function () use ($router) {
     $routes = $router->app->router->getRoutes();
     return view("home")->with("routes", $routes);
 });
-
-
-$router->group(['middleware' => 'guest', 'prefix' => 'api/admin'], function () use ($router) {
-    $router->post('/register', 'UserController@Register');
-});
-
+$router->get('/is_logged_in', 'UserController@is_logged_in');
 
 $router->group(['middleware' => 'guest', 'prefix' => 'api/admin'], function () use ($router) {
+    $router->post('/register', 'UserController@register');
     $router->post('/login', 'UserController@login');
 });
 $router->group(['middleware' => 'auth', 'prefix' => 'api/admin'], function () use ($router) {
     $router->post('/logout', 'UserController@logout');
+    $router->post('/refresh_token', 'UserController@refresh_token');
 });
-$router->get('/is_logged_in', 'UserController@is_logged_in');
 $router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($router) {
 
     // parents
@@ -88,5 +84,9 @@ $router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($ro
     $router->post('/waiting/update/{student_id}', 'WaitingController@update');
     
     $router->delete('/waiting/delete/{student_id}', 'WaitingController@destroy');
+
+    //count
+
+    $router->get('/count/{table}', 'CommonController@count');
     
 });
