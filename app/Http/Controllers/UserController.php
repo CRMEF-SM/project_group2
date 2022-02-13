@@ -28,7 +28,7 @@ class UserController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function Register(Request $request)
+	public function register(Request $request)
 	{
 		$nom = $request->nom;
 		$prenom = $request->prenom;
@@ -157,5 +157,26 @@ class UserController extends Controller
 	public function is_logged_in()
 	{
 		return response()->json(['is_logged_in' => auth()->check()]);
+	}
+
+	public function refresh_token(Request $request)
+	{
+		$oauth = DB::table('oauth_clients')->where('id',2)->first();
+		$client = new Client();
+		try {
+			return $client->post('http://rfid.com/api/oauth/token/refresh', [
+				'form_params' => [
+					'grant_type' => 'refresh_token',
+					'client_secret' => $oauth->secret,
+					'client_id' => 2,
+					'refresh_token' => $request->refresh_token
+				],
+				'headers' => [
+					'Authorization' => 'Bearer '.$request->bearerToken(),
+				]
+			]);
+		} catch (Exception $e) {
+			return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+		}
 	}
 }
