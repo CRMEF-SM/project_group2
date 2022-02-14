@@ -48,6 +48,12 @@ class WaitingController extends Controller
         ]]);
     }
 
+    public function waiting_list()
+    {
+        $waiting = Waiting::all()->where('went_at',null);
+        return response()->json($waiting);
+    }
+
     /**
      * Display the specified resource.
      *
