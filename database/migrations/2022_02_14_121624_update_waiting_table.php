@@ -20,7 +20,7 @@ class UpdateWaitingTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations. cp .env.example .env && php artisan key:generate && php artisan migrate && php artisan passport:install
      *
      * @return void
      */

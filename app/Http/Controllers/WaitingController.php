@@ -36,11 +36,16 @@ class WaitingController extends Controller
         $waiting->save();
         return response()->json($waiting);
     }
-    
+
     public function insert_card($id)
     {
         $carte = Carte::findOrFail($id);
-        $parent = 
+        $parent = $carte->parent;
+        $kids = $parent->kids;
+        return response()->json(['status' => 'success', 'data' => [
+            'parent' => $parent,
+            'kids' => $kids
+        ]]);
     }
 
     /**
