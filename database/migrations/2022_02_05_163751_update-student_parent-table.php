@@ -13,7 +13,7 @@ class UpdateStudentParentTable extends Migration
      */
     public function up()
     {
-        Schema::rename('students_parents', 'student_parents');
+        //Schema::rename('students_parents', 'student_parents');
     }
 
     /**

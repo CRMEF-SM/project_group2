@@ -15,7 +15,7 @@ class UpdateStudentsTable extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
 
-            $table->string('photo');
+            //$table->string('photo');
 
         });
     }
