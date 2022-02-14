@@ -30,12 +30,12 @@ $router->group(['middleware' => 'auth', 'prefix' => 'api/admin'], function () us
 });
 
 
-//rfid_card
-$router->post('/api/insert_card/{id}', 'WaitingController@insert_card');
-$router->get('/api/waiting_list', 'WaitingController@waiting_list');
 
-$router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($router) {
-
+$router->group(['prefix' => 'api'], function () use ($router) {
+    //rfid_card
+    $router->post('/insert_card/{id}', 'WaitingController@insert_card');
+    $router->get('/waiting_list', 'WaitingController@waiting_list');
+    
     // parents
     $router->get('/parents', 'ParentController@index');
     
