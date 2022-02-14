@@ -17,7 +17,7 @@ class UpdateParentsTable extends Migration
 
         Schema::table('parents', function (Blueprint $table) {
 
-            $table->dropColumn('carte_id');
+            //$table->dropColumn('carte_id');
 
         });
 
