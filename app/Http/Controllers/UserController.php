@@ -164,7 +164,7 @@ class UserController extends Controller
 		$oauth = DB::table('oauth_clients')->where('id',2)->first();
 		$client = new Client();
 		try {
-			return $client->post('http://rfid.com/api/oauth/token/refresh', [
+			return $client->post('https://rfid123.azurewebsites.net/api/oauth/token/refresh', [
 				'form_params' => [
 					'grant_type' => 'refresh_token',
 					'client_secret' => $oauth->secret,
