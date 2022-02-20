@@ -28,8 +28,14 @@ $router->group(['middleware' => 'auth', 'prefix' => 'api/admin'], function () us
     $router->post('/logout', 'UserController@logout');
     $router->post('/refresh_token', 'UserController@refresh_token');
 });
-$router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($router) {
 
+
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    //rfid_card
+    $router->post('/insert_card/{id}', 'WaitingController@insert_card');
+    $router->get('/waiting_list', 'WaitingController@waiting_list');
+    
     // parents
     $router->get('/parents', 'ParentController@index');
     
@@ -88,5 +94,6 @@ $router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($ro
     //count
 
     $router->get('/count/{table}', 'CommonController@count');
+
     
 });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateStudentsTable extends Migration
+class UpdateWaitingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class UpdateStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('students', function (Blueprint $table) {
-
-            //$table->string('photo');
-
+        Schema::table('waitings', function (Blueprint $table) {
+            $table->date('arrived_at')->nullable();
+            $table->date('went_at')->nullable();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations. cp .env.example .env && php artisan key:generate && php artisan passport:keys
      *
      * @return void
      */

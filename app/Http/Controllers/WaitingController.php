@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carte;
 use App\Models\Waiting;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,23 @@ class WaitingController extends Controller
         $waiting->student_id = $request->input('student_id');
 
         $waiting->save();
+        return response()->json($waiting);
+    }
+
+    public function insert_card($id)
+    {
+        $carte = Carte::findOrFail($id);
+        $parent = $carte->parent;
+        $kids = $parent->kids;
+        return response()->json(['status' => 'success', 'data' => [
+            'parent' => $parent,
+            'kids' => $kids
+        ]]);
+    }
+
+    public function waiting_list()
+    {
+        $waiting = Waiting::all()->where('went_at',null);
         return response()->json($waiting);
     }
 
