@@ -14,8 +14,8 @@ class UpdateWaitingTable extends Migration
     public function up()
     {
         Schema::table('waitings', function (Blueprint $table) {
-            $table->date('arrived_at')->nullable();
-            $table->date('went_at')->nullable();
+            $table->dateTime('arrived_at')->nullable();
+            $table->dateTime('went_at')->nullable();
         });
     }
 

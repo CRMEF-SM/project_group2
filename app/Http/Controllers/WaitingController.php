@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Carte;
 use App\Models\Waiting;
 use Illuminate\Http\Request;
+use App\Models\Student;
+use App\Models\StudentParent;
 
 class WaitingController extends Controller
 {
@@ -37,21 +39,59 @@ class WaitingController extends Controller
         return response()->json($waiting);
     }
 
-    public function insert_card($id)
+    public function arrived($id)
     {
         $carte = Carte::findOrFail($id);
         $parent = $carte->parent;
-        $kids = $parent->kids;
+        //$kids = $parent->kids;
+        $student_parent = StudentParent::where('parent_id',$carte->parent_id)->get();
+        $kids = Student::find($student_parent[0]['student_id']);
+
+        $waiting = new Waiting();
+        $waiting->parent_id  = $parent->id;
+        $waiting->student_id = $kids->id;
+        $waiting->arrived_at = date("Y-m-d h:i:s");
+        $waiting->save();
+
         return response()->json(['status' => 'success', 'data' => [
             'parent' => $parent,
             'kids' => $kids
         ]]);
     }
 
+    public function went($id)
+    {
+        $carte = Carte::findOrFail($id);
+        $parent = $carte->parent;
+        //$kids = $parent->kids;
+        $student_parent = StudentParent::where('parent_id',$carte->parent_id)->get();
+        $kids = Student::find($student_parent[0]['student_id']);
+
+        //update went time
+        Waiting::where('student_id',$kids->id)->update(['went_at'=> date("Y-m-d h:i:s")]);
+        $waiting = Waiting::where('student_id',$kids->id)->get();
+
+        return response()->json(['status' => 'success', 'data' => [
+            'parent' => $parent,
+            'kids' => $kids,
+            'arrived_at' => $waiting[0]['arrived_at'],
+            'went_at' => $waiting[0]['went_at']
+        ]]);
+    }
+
+
     public function waiting_list()
     {
-        $waiting = Waiting::all()->where('went_at',null);
-        return response()->json($waiting);
+        $waiting_list = Waiting::all()->where('went_at',null);
+        $data = array();
+        foreach ($waiting_list as $wait) {
+            $val['parent']= $wait->parent;
+            $val['student']= $wait->student;
+            $val['arrived_at'] = $wait->arrived_at;
+            $val['went_at'] = $wait->went_at;
+            array_push($data, $val);
+        }
+        return response()->json($data);
     }
 
     /**

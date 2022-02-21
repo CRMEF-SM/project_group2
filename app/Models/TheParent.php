@@ -18,4 +18,5 @@ class TheParent extends Model
     {
         return $this->hasOne(Carte::class);
     }
+
 }
