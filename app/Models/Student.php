@@ -13,6 +13,6 @@ class Student extends Model
 
     public function parent()
     {
-        return $this->hasManyThrough(TheParent::class, StudentParent::class, "student_id", "parent_id");
+        return $this->hasManyThrough(TheParent::class, StudentParent::class);
     }
 }
