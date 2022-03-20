@@ -1,0 +1,13 @@
+{
+    "parents":[
+        {"cin": "jb567894", "name": "Hassan Yazidi", "city": "Inezgane", "url": "./assets/imageReal/imagepro1.jpg", "waitingState": true},
+        {"cin": "jb458992", "name": "Yassine Alaoui", "city": "Agadir", "url": "./assets/imageReal/imagepro3.png", "waitingState": true},
+        {"cin": "jb908765", "name": "Khaled Samadi", "city": "Ait Melloul", "url": "./assets/imageReal/imagepro4.png", "waitingState": true}
+    ],
+    "students": [
+        {"name": "Mohammed Yazidi", "city": "Inezgane", "url": "./assets/imageReal/stud1.jpg", "waitingState": true},
+        {"name": "Fatima Alaoui", "city": "Agadir", "url": "./assets/imageReal/stud2.jpg", "waitingState": true},
+        {"name": "Salah Samadi", "city": "Ait Melloul", "url": "./assets/imageReal/stud3.jpg", "waitingState": true}
+    ]
+
+}
