@@ -1,0 +1,68 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "user": {
+    "id": "1",
+    "email": "admin@admin.com",
+    "password": "password"
+  },
+  "parent": [
+    {
+      "nom": "",
+      "prenom": "",
+      "cin": "",
+      "phone": "",
+      "adresse": "",
+      "id": "1"
+    }
+  ],
+  "student": [
+    {
+      "id": "1",
+      "nom": "Ahmed junior",
+      "prenom": "Snow",
+      "adresse": "123 somewhere on earth",
+      "niveau": "First grade"
+    }
+  ],
+  "waiting": [
+    {
+      "id": "1",
+      "name": "Ahmed",
+      "adress": "123 somewhere on earth",
+      "level": "First grade",
+      "birthDate": "01/01/2026",
+      "phone": "08374665656",
+      "enterTime": "9:00 am",
+      "quitTime": "1:00 pm"
+    },
+    {
+      "id": "2",
+      "name": "Kamel",
+      "adress": "124 somewhere on earth",
+      "level": "First grade",
+      "birthDate": "01/01/2026",
+      "phone": "087474665656",
+      "enterTime": "9:00 am",
+      "quitTime": "1:00 pm"
+    }
+  ],
+  "userCount": {
+    "count": "2335"
+  }
+}
