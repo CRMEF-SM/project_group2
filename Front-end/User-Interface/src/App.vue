@@ -7,24 +7,24 @@
     </nav>
         <div class="sidebar">
         <div class="sidebar-title"><i class="fas fa-clock"></i> Waiting List</div>
-        <div class="box" v-for="info in infosChildren" :key="info.cin">
-          <div class="users" v-if="info.waitingState">
-              <img v-bind:src="require(`${info.url}`)" alt="image-student" id="img-student">       
+        <div class="box" v-for="info in waiting_list" :key="info">
+          <div class="users">
+              <img v-bind:src="info.student.photo" alt="image-student" id="img-student">       
           </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" v-if='this.waiting_list[this.i]'>
         <div class="main-box parent">
           <!-- :src="this.infosParent[this.i].url" -->
-            <img  :src="require(`${this.infosParents[this.i].url}`)" alt="image-parent" id="parent-image">
-            <h2 class="heading-name" id="parent-name" ref="parentname">{{ this.infosParents[this.i].name }}</h2>
-            <h3 class="heading-work" id="parent-city">{{ this.infosParents[this.i].city }}</h3>
+            <img  :src="`${this.waiting_list[0].parent.photo}`" alt="image-parent" id="parent-image">
+            <h2 class="heading-name" id="parent-name" ref="parentname">{{ this.waiting_list[0].parent.first_name }} {{ this.waiting_list[0].parent.last_name }}</h2>
+            <h3 class="heading-work" id="parent-city">{{ this.waiting_list[0].parent.adresse }}</h3>
         </div>
         <div class="main-box student">
-            <img :src="require(`${this.infosChildren[this.i].url}`)" alt="image-student" id="child-image">
-            <h2 class="heading-name" id="child-name">{{ this.infosChildren[this.i].name }}</h2>
-            <h3 class="heading-work" id="child-city">{{ this.infosChildren[this.i].city }}</h3>
+            <img :src="`${this.waiting_list[0].student.photo}`" alt="image-student" id="child-image">
+            <h2 class="heading-name" id="child-name">{{ this.waiting_list[0].student.first_name }} {{ this.waiting_list[0].student.last_name }}</h2>
+            <h3 class="heading-work" id="child-city">{{ this.waiting_list[0].student.adresse }}</h3>
         </div>
     </div>
 </template>
@@ -37,36 +37,28 @@ export default {
   name: 'App',
   data(){
       return{
-      infosParents: [],
-      infosChildren: [],
+      waiting_list: [],
       i: 0
     }
   },
   mounted(){
-    setInterval(() => {
-      this.handleData()
-    }, 2000)
   }
   ,
   async created(){
+    await this.handleData()
+  },
+  methods: {
+    async handleData(){
     try{
-      const res = await axios.get("http://localhost:3000/parents");
-      const secondeRes = await axios.get("http://localhost:3000/students")
-      this.infosParents = res.data;
-      this.infosChildren = secondeRes.data
+      var waiting_list = await axios.get("http://localhost/api/waiting_list")
+      this.waiting_list = waiting_list.data;
+      setTimeout(() => {
+      this.handleData()
+    }, 2000)
     }catch(err){
       console.log(err);
     }
-  },
-  methods: {
-    handleData(){
-      if(this.i === this.infosParents.length){
-        this.i = 0
-        return
-      }
-      this.infosChildren[this.i].waitingState = false
-      this.i = this.i + 1
-  }
+    }
   }
 }
 </script>
