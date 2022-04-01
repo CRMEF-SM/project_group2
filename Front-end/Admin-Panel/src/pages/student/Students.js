@@ -237,7 +237,7 @@ const onDeleteStudent = (record) => {
           </Col>
         </Row>
         <Modal
-          title="Edit Student infos "
+          title="Edit Parent"
           visible={isEditing}
           okText="Save"
           onCancel={() => {

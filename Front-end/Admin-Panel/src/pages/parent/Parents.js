@@ -16,7 +16,6 @@ import {
 
 
 // Images
-import face2 from "../../assets/images/face-2.jpg";
 import { useHistory } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
@@ -35,6 +34,12 @@ function Parents() {
 
 // table code start
 const columns = [
+  {
+    title: "Image",
+    dataIndex: "photo",
+    key: "photo",
+     width: "40%",
+  },
   {
     title: "First Name",
     dataIndex: "nom",
@@ -205,15 +210,7 @@ const onDeleteStudent = (record) => {
             resetEditing();
           }}
           onOk={() => {
-            setData((pre) => {
-              return pre.map((student) => {
-                if (student.id === editingStudent.id) {
-                  return editingStudent;
-                } else {
-                  return student;
-                }
-              });
-            });
+        
             resetEditing();
           }}
         >
@@ -310,7 +307,6 @@ const onDeleteStudent = (record) => {
                   </Form.Item>
                   </Col>
                   <Col span={24} md={24} className="col-info">
-                 
                   </Col>
                 </Row>
                 </Form>
