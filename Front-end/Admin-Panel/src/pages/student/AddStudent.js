@@ -1,6 +1,7 @@
 // @ts-nocheck
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Select from "react-select";
 
 import {
   Row,
@@ -17,8 +18,6 @@ import {
 import {
   VerticalAlignTopOutlined,
 } from "@ant-design/icons";
-
-import profilavatar from "../../assets/images/face-1.jpg";
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 
@@ -29,6 +28,7 @@ function AddStudent() {
   const [prenom, setPrenom] = useState('');
   const [niveau, setNiveau] = useState('');
   const [adresse, setAdresse] = useState('');
+  const [option, setOption] = useState([]);
   const history = useHistory();
 
 
@@ -70,7 +70,7 @@ function AddStudent() {
           prenom : prenom,
           niveau : niveau,
           adresse : adresse}
-        ) .then(function (response) {
+        ).then(function (response) {
           
           console.log(response);
         })
@@ -86,6 +86,25 @@ function AddStudent() {
     </div>
   );
 
+
+ 
+
+  const parentsList= async () => {
+  
+    const res = await axios.get("http://localhost:3004/parent")
+    const data = res.data
+
+    const parent = data.map(d => ({
+      value : d.id,
+      label : d.nom
+    }))
+
+    setOption(parent)
+    console.log(option)
+};
+
+
+ useEffect(()=> parentsList(),[]);
 
   return (
     <>
@@ -192,7 +211,28 @@ function AddStudent() {
                       },
                     ]}
                   >
-                    <Input placeholder="Adress" />
+                    <Input placeholder="Select parent" />
+                  </Form.Item>
+                  </Col>
+
+                  <Col span={24} md={24} className="col-info">
+                  <Form.Item
+                    className="username"
+                    label="Select parent"
+                    name="parent"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select a parent!",
+                      },
+                    ]}
+                  >
+                    <Select
+         value={option.value}
+         options={option}
+        //onChange={e => setOption(e.target.value)}
+                        
+      />
                   </Form.Item>
                   </Col>
                   <Col span={24} md={24} className="col-info">
@@ -207,6 +247,7 @@ function AddStudent() {
                     </Button>
                   </Form.Item>
                   </Col>
+                  
                 </Row>
                 </Form>
                 </Col>
