@@ -26,8 +26,8 @@ $router->group(['middleware' => 'guest', 'prefix' => 'api'], function () use ($r
 
 
     //rfid_card
-    $router->post('/arrived/{id}', 'WaitingController@arrived');
-    $router->post('/went/{id}', 'WaitingController@went');
+    $router->get('/arrived/{id}', 'WaitingController@arrived');
+    $router->get('/went/{id}', 'WaitingController@went');
     $router->get('/waiting_list', 'WaitingController@waiting_list');
 
     // parents
@@ -54,9 +54,11 @@ $router->group(['middleware' => 'guest', 'prefix' => 'api'], function () use ($r
 
     //Cartes
     $router->get('/cartes', 'CarteController@index');
+    
+    $router->get('/cartes/is_waiting/{carte_id}', 'CarteController@is_waiting');
 
     $router->get('/cartes/{carte_id}', 'CarteController@show');
-
+    
     $router->post('/cartes/create', 'CarteController@store');
 
     $router->post('/cartes/update/{carte_id}', 'CarteController@update');
