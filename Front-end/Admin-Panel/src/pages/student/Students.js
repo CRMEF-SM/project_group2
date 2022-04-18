@@ -88,7 +88,7 @@ const columns = [
   {
     title: "Student",
     dataIndex: "nom",
-    key: "nom",
+    key: "first_name",
     width: "40%",
   },
   {
@@ -155,7 +155,7 @@ const resetEditing = () => {
 
 
 const getStudent = async () => {
-await axios.get(`http://localhost:3004/student`)
+await axios.get(`http://localhost/api/students`)
 .then((response) =>{
   const Students = response.data;
   console.log("Students",Students);
