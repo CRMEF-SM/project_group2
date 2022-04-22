@@ -39,7 +39,7 @@ function Home() {
 
   // students who are waiting for there parents- ist 
   const  getWaiting = async () => {
-    await axios.get(`http://localhost:3004/waiting`)
+    await axios.get(`http://localhost/api/waiting_list`)
     .then((response) =>{
       const waiting = response.data;
       console.log("waiting",waiting);
