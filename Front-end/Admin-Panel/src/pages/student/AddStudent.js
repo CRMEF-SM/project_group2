@@ -65,7 +65,7 @@ function AddStudent() {
   };
 
   const onFinish  = async (e) => {
-    await axios.post('http://localhost:3004/student',
+    await axios.post('http://localhost/api/students',
          { nom : nom,
           prenom : prenom,
           niveau : niveau,

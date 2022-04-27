@@ -87,13 +87,13 @@ const [adresse, setAdresse] = useState('');
 const columns = [
   {
     title: "Student",
-    dataIndex: "nom",
-    key: "first_name",
+    dataIndex: "first_name",
+    key: "nom",
     width: "40%",
   },
   {
     title: "Last name",
-    dataIndex: "prenom",
+    dataIndex: "last_name",
     key: "prenom",
     width: "40%",
   },
@@ -138,7 +138,7 @@ const columns = [
 
 const onEditStudent = async (record) => {
   setIsEditing(true);
-  await axios.put(`http://localhost:3004/student/${record.id}`,
+  await axios.put(`http://localhost/api/students/${record.id}`,
   { nom : nom,
    prenom : prenom,
    niveau : niveau,
@@ -166,7 +166,7 @@ await axios.get(`http://localhost/api/students`)
 
 const handleDelete = person => {
   axios
-  .delete(`http://localhost:3004/Student/${person.id}`)
+  .delete(`http://localhost/api/students/${person.id}`)
   .then(response => {
   
   });  
@@ -176,7 +176,7 @@ useEffect(()=> getStudent(),[]);
 
 const onFinish  = async (e,person) => {
   e.preventDefault();
-  await axios.put(`http://localhost:3004/student/${person}`,
+  await axios.put(`http://localhost/api/students/${person.id}`,
        { nom : nom,
         prenom : prenom,
         niveau : niveau,

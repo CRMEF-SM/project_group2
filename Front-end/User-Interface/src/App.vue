@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="./assets/logo.png" alt="logo" />
       </div>
-      <h3>School Name</h3>
+      <h3>Kids Campus</h3>
     </nav>
     <div v-if="waiting_list.length > 0">
       <div class="sidebar">
@@ -123,7 +123,7 @@ nav h3 {
   font-family: "Dancing Script", cursive;
   font-size: 27px;
   font-weight: 600;
-  color: #b42dfd;
+  color: #5ca89f;
 }
 .sidebar {
   position: absolute;

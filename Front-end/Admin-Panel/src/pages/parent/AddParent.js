@@ -66,7 +66,7 @@ function Forum() {
   };
 
   const onFinish  = async (e) => {
-    await axios.post('http://localhost:3004/parent',
+    await axios.post('http://localhost/api/parents',
          { nom : nom,
           prenom : prenom,
           cin : cin,
