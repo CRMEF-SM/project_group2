@@ -39,16 +39,17 @@ const columns = [
     dataIndex: "photo",
     key: "photo",
      width: "40%",
+     render: theImageURL => <img width="50px" src={"http://localhost/images/"+theImageURL} />
   },
   {
     title: "First Name",
-    dataIndex: "nom",
+    dataIndex: "first_name",
     key: "nom",
      width: "40%",
   },
   {
     title: "Last Name",
-    dataIndex: "prenom",
+    dataIndex: "last_name",
     key: "prenom",
      width: "40%",
   },
@@ -99,7 +100,7 @@ const [editingStudent, setEditingStudent] = useState(null);
 
 const handleDelete = person => {
   axios
-  .delete(`http://localhost:3004/parent/${person.id}`)
+  .delete(`http://localhost/api/parents/${person.id}`)
   .then(response => {
   });  
   history.push('/parents');
@@ -109,7 +110,7 @@ const handleDelete = person => {
 
 const onEditStudent = async (record) => {
   setIsEditing(true);
-  await axios.put(`http://localhost:3004/parent/${record.id}`,
+  await axios.put(`http://localhost/api/parents/${record.id}`,
   { nom : nom,
    prenom : prenom,
    cin : cin,
@@ -126,7 +127,7 @@ const resetEditing = () => {
 };
 
 const getParent = async () => {
-await axios.get(`http://localhost:3004/parent`)
+await axios.get(`http://localhost/api/parents`)
 .then((response) =>{
   const parents = response.data;
   console.log("parents",parents);
@@ -141,7 +142,7 @@ useEffect(()=> getParent(),[]);
 
 const onFinish  = async (e,person) => {
   e.preventDefault();
-  await axios.put(`http://localhost:3004/parent/${person}`,
+  await axios.put(`http://localhost/api/parents/${person}`,
        { nom : nom,
         prenom : prenom,
         cin : cin,
